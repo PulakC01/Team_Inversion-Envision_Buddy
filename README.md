@@ -20,6 +20,8 @@ Some may argue that he/she can refer to videos on YouTube or similar websites or
 5. The user has to just hold his/her device in a manner that a surface can be detected by the app.
 6. And it's done! The 3D model will now appear on the users surface and then he/she can manually rotate it or resize it as per his/her wish and also, move with their phone throughout the place so that they can visualize the model from all places if they wish to do so (rather than rotating the model), and thus can analyze and understand the concept in-depth and forever.
 
+## Note
+The repository may be committed several times in order update the URL of the model present in ChoiceActivity.java file, since it is hosted on a localhost server whose URL refreshes every two hours.
 ## <img src="https://www.starface.com/wp-content/uploads/2017/05/STARFACE_Comfortphoning_Zukunftssicher-Icon-350-1.png" width="40" height="32"> Future scope
 The app, for now, runs on a cloud-based system i.e one has to be connected to the internet to view the 3D models. In the future, we plan to group these models subject/course-wise and allow the user to download the models for those subjects which they wish to view. This would facilitate offline learning and at the same time, the user need not have an active internet connection, thus removing the barrier of a good and active internet connection between the user and learning. This app can be very useful for those who are following self-learning practices or those who cannot afford to go to the big coaching institutes (where advanced teaching techniques are applied).
 

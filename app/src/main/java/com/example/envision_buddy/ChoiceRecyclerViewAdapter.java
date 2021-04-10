@@ -17,6 +17,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 //
 
 public class ChoiceRecyclerViewAdapter extends RecyclerView.Adapter<ChoiceRecyclerViewAdapter.RecyclerViewHolder> {
@@ -49,6 +55,42 @@ public class ChoiceRecyclerViewAdapter extends RecyclerView.Adapter<ChoiceRecycl
                 progress.setCancelable(false);
                 progress.show();
                 ChoiceActivity.models.clear();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(API.BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                API myApi = retrofit.create(API.class);
+                Call<ArrayList<JSONProcessActivity>> call = myApi.getResult("old-smoke-4544", arrayList.get(position));
+                call.enqueue(new Callback<ArrayList<JSONProcessActivity>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<JSONProcessActivity>> call, Response<ArrayList<JSONProcessActivity>> response) {
+                        ArrayList<JSONProcessActivity> searchResults = response.body();
+                        for (int i=0; i<searchResults.size(); i++){
+                            if (searchResults.get(i).getSource().equals("Poly")) {
+                                Map<String, String> modelInfo = new HashMap<>();
+                                modelInfo.put("name", searchResults.get(i).getName());
+                                modelInfo.put("thumbnail", searchResults.get(i).getThumbnail());
+                                modelInfo.put("url", searchResults.get(i).getGltfUrl());
+                                ChoiceActivity.models.add(modelInfo);
+                            }
+                        }
+
+                        progress.dismiss();
+                        if (!ChoiceActivity.models.isEmpty()) {
+                            //context.startActivity(new Intent(context, ModelsActivity.class));
+                        }else{
+                            Snackbar snackbar = Snackbar.make(v, "Couldn't fetch data", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<JSONProcessActivity>> call, Throwable t) {
+                        progress.dismiss();
+                        Snackbar snackbar = Snackbar.make(v, "Couldn't fetch data", Snackbar.LENGTH_LONG);
+                        snackbar.show();
+                    }
+                });
             }
         });
     }

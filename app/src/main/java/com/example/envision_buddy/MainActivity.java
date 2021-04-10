@@ -42,6 +42,8 @@ import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -102,10 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (photoFile != null) {
-                    /*Uri photoURI = FileProvider.getUriForFile(this, "com.teaminversion.envisionbuddy.fileprovider", photoFile);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);*/
+                    CropImage.activity()
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .start(this);
 
                 }
             }
@@ -138,9 +139,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         try {
-            if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-                //File file = new File(mCurrentPhotoPath);
-                Bitmap bitmap = null;
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+                CropImage.ActivityResult cropResult = CropImage.getActivityResult(intent);
+                Uri resultUri = cropResult.getUri();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
                 if (bitmap != null) {
                     InputImage image = InputImage.fromBitmap(bitmap, 0);
                     TextRecognizer recognizer = TextRecognition.getClient();

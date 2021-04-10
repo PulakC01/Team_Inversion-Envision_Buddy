@@ -1,19 +1,16 @@
 package com.example.envision_buddy;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-
 public class ModelsActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +18,7 @@ public class ModelsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_models);
         RecyclerView modelsRecyclerView = findViewById(R.id.modelsRecyclerView);
 
-        ModelsRecyclerViewAdapter modelsAdapter = new ModelsRecyclerViewAdapter(ChoiceActivity.models,this);
+        com.teaminversion.envisionbuddy.ModelsRecyclerViewAdapter modelsAdapter = new com.teaminversion.envisionbuddy.ModelsRecyclerViewAdapter(com.teaminversion.envisionbuddy.ChoiceActivity.models,this);
         GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         modelsRecyclerView.setLayoutManager(layoutManager);
         modelsRecyclerView.setAdapter(modelsAdapter);
@@ -31,7 +28,10 @@ public class ModelsActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ModelsActivity.this, ChoiceActivity.class));
+                Intent intent = new Intent(com.teaminversion.envisionbuddy.ModelsActivity.this, com.teaminversion.envisionbuddy.ChoiceActivity.class);
+                //intent.putExtra("status", true);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
             }
         });
@@ -40,7 +40,10 @@ public class ModelsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(ModelsActivity.this, ChoiceActivity.class));
+        Intent intent = new Intent(com.teaminversion.envisionbuddy.ModelsActivity.this, com.teaminversion.envisionbuddy.ChoiceActivity.class);
+        //intent.putExtra("status", true);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
         finish();
     }
 }

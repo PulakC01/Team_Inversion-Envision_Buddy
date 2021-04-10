@@ -1,4 +1,4 @@
-package com.example.envision_buddy;
+package com.teaminversion.envisionbuddy;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,12 +20,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.RecyclerViewHolder> {
+public class ModelsRecyclerViewAdapter extends RecyclerView.Adapter<ModelsRecyclerViewAdapter.RecyclerViewHolder> {
 
     private ArrayList<Map<String, String>> arrayList;
     private final Context context;
 
-    public SearchRecyclerViewAdapter(ArrayList<Map<String, String>> arrayList, Context context) {
+    public ModelsRecyclerViewAdapter(ArrayList<Map<String, String>> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -33,7 +33,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_layout_search, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_layout_models, parent, false);
         return new RecyclerViewHolder(view);
     }
 
@@ -55,14 +55,15 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
                     HomeFragment.recentList.remove(word);
                 }
                 HomeFragment.recentList.add(word);
-                SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.envision_buddy", Context.MODE_PRIVATE);
+                HomeFragment.mainAdapter.notifyDataSetChanged();
+                SharedPreferences sharedPreferences = context.getSharedPreferences("com.teaminversion.envisionbuddy", Context.MODE_PRIVATE);
                 try {
                     sharedPreferences.edit().putString("recentList", ObjectSerializer.serialize(HomeFragment.recentList)).apply();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 Intent sceneViewerIntent = new Intent(Intent.ACTION_VIEW);
-                sceneViewerIntent.setData(Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=" + arrayList.get(position).get("url")));
+                sceneViewerIntent.setData(Uri.parse("https://arvr.google.com/scene-viewer/1.0?file=" + ChoiceActivity.models.get(position).get("url")));
                 sceneViewerIntent.setPackage("com.google.android.googlequicksearchbox");
                 context.startActivity(sceneViewerIntent);
             }

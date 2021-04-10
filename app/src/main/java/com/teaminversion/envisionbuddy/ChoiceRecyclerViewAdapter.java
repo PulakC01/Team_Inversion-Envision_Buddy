@@ -1,4 +1,4 @@
-package com.example.envision_buddy;
+package com.teaminversion.envisionbuddy;
 
 import android.app.ProgressDialog;
 import android.content.Context;

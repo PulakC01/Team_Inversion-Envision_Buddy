@@ -1,4 +1,4 @@
-package com.example.envision_buddy;
+package com.teaminversion.envisionbuddy;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -180,9 +180,9 @@ public class MainActivity extends AppCompatActivity {
         Button continueButton = findViewById(R.id.continueButton);
         continueButton.setEnabled(true);
         continueButton.setOnClickListener(v -> {
-            /*Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
+            Intent intent = new Intent(MainActivity.this, ChoiceActivity.class);
             intent.putExtra("text", resultText);
-            startActivity(intent);*/
+            startActivity(intent);
         });
 
     }

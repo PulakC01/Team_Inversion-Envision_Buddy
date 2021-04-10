@@ -77,7 +77,7 @@ public class ChoiceRecyclerViewAdapter extends RecyclerView.Adapter<ChoiceRecycl
 
                         progress.dismiss();
                         if (!ChoiceActivity.models.isEmpty()) {
-                            //context.startActivity(new Intent(context, ModelsActivity.class));
+                            context.startActivity(new Intent(context, ModelsActivity.class));
                         }else{
                             Snackbar snackbar = Snackbar.make(v, "Couldn't fetch data", Snackbar.LENGTH_LONG);
                             snackbar.show();

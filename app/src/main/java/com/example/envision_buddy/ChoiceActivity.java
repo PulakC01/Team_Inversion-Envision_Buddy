@@ -60,7 +60,7 @@ public class ChoiceActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.teaminversion.envisionbuddy.ChoiceActivity.this, MainActivity.class);
+                Intent intent = new Intent(ChoiceActivity.this, MainActivity.class);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -89,7 +89,7 @@ public class ChoiceActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(com.teaminversion.envisionbuddy.ChoiceActivity.this, MainActivity.class);
+        Intent intent = new Intent(ChoiceActivity.this, MainActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
@@ -136,8 +136,8 @@ public class ChoiceActivity extends AppCompatActivity {
             if (!choiceList.isEmpty()) {
                 choiceAdapter.notifyDataSetChanged();
             }else{
-                Toast.makeText(com.teaminversion.envisionbuddy.ChoiceActivity.this, "No relevant words found", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(com.teaminversion.envisionbuddy.ChoiceActivity.this, MainActivity.class);
+                Toast.makeText(ChoiceActivity.this, "No relevant words found", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ChoiceActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

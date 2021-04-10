@@ -25,7 +25,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class ChoiceRecyclerViewAdapter extends RecyclerView.Adapter<com.teaminversion.envisionbuddy.ChoiceRecyclerViewAdapter.RecyclerViewHolder> {
+public class ChoiceRecyclerViewAdapter extends RecyclerView.Adapter<ChoiceRecyclerViewAdapter.RecyclerViewHolder> {
 
     private ArrayList<String> arrayList;
     private final Context context;
@@ -37,13 +37,13 @@ public class ChoiceRecyclerViewAdapter extends RecyclerView.Adapter<com.teaminve
 
     @NonNull
     @Override
-    public com.teaminversion.envisionbuddy.ChoiceRecyclerViewAdapter.RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ChoiceRecyclerViewAdapter.RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_layout_choice, parent, false);
-        return new com.teaminversion.envisionbuddy.ChoiceRecyclerViewAdapter.RecyclerViewHolder(view);
+        return new ChoiceRecyclerViewAdapter.RecyclerViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.teaminversion.envisionbuddy.ChoiceRecyclerViewAdapter.RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChoiceRecyclerViewAdapter.RecyclerViewHolder holder, int position) {
         holder.choiceTextView.setText(arrayList.get(position));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,30 +55,30 @@ public class ChoiceRecyclerViewAdapter extends RecyclerView.Adapter<com.teaminve
                 progress.setIndeterminate(true);
                 progress.setCancelable(false);
                 progress.show();
-                com.teaminversion.envisionbuddy.ChoiceActivity.models.clear();
+                ChoiceActivity.models.clear();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(com.teaminversion.envisionbuddy.API.BASE_URL)
+                        .baseUrl(API.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                com.teaminversion.envisionbuddy.API myApi = retrofit.create(com.teaminversion.envisionbuddy.API.class);
-                Call<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>> call = myApi.getResult("old-smoke-4544", word);
-                call.enqueue(new Callback<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>>() {
+                API myApi = retrofit.create(API.class);
+                Call<ArrayList<JSONProcessActivity>> call = myApi.getResult("old-smoke-4544", word);
+                call.enqueue(new Callback<ArrayList<JSONProcessActivity>>() {
                     @Override
-                    public void onResponse(Call<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>> call, Response<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>> response) {
-                        ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity> searchResults = response.body();
+                    public void onResponse(Call<ArrayList<JSONProcessActivity>> call, Response<ArrayList<JSONProcessActivity>> response) {
+                        ArrayList<JSONProcessActivity> searchResults = response.body();
                         for (int i=0; i<searchResults.size(); i++){
                             if (searchResults.get(i).getSource().equals("Poly")) {
                                 Map<String, String> modelInfo = new HashMap<>();
                                 modelInfo.put("name", searchResults.get(i).getName());
                                 modelInfo.put("thumbnail", searchResults.get(i).getThumbnail());
                                 modelInfo.put("url", searchResults.get(i).getGltfUrl());
-                                com.teaminversion.envisionbuddy.ChoiceActivity.models.add(modelInfo);
+                                ChoiceActivity.models.add(modelInfo);
                             }
                         }
 
                         progress.dismiss();
-                        if (!com.teaminversion.envisionbuddy.ChoiceActivity.models.isEmpty()) {
-                            context.startActivity(new Intent(context, com.teaminversion.envisionbuddy.ModelsActivity.class));
+                        if (!ChoiceActivity.models.isEmpty()) {
+                            context.startActivity(new Intent(context, ModelsActivity.class));
                         }else{
                             Snackbar snackbar = Snackbar.make(v, "No 3D models found", Snackbar.LENGTH_LONG);
                             snackbar.show();
@@ -86,7 +86,7 @@ public class ChoiceRecyclerViewAdapter extends RecyclerView.Adapter<com.teaminve
                     }
 
                     @Override
-                    public void onFailure(Call<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<JSONProcessActivity>> call, Throwable t) {
                         progress.dismiss();
                         Snackbar snackbar = Snackbar.make(v, "Couldn't fetch data", Snackbar.LENGTH_LONG);
                         snackbar.show();

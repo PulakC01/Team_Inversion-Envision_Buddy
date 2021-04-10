@@ -26,7 +26,7 @@ public class TextFragment extends Fragment {
         TextInputLayout inputLayout = root.findViewById(R.id.filledTextField);
         EditText editText = root.findViewById(R.id.editText);
         inputLayout.setError(null);
-        editText.setText(com.teaminversion.envisionbuddy.HomeFragment.resultText);
+        editText.setText(HomeFragment.resultText);
         Button continueButton = root.findViewById(R.id.continueButton);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +37,7 @@ public class TextFragment extends Fragment {
                     inputLayout.setError(null);
                     InputMethodManager manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     manager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                    Intent intent = new Intent(getActivity(), com.teaminversion.envisionbuddy.ChoiceActivity.class);
+                    Intent intent = new Intent(getActivity(), ChoiceActivity.class);
                     intent.putExtra("text", editText.getText().toString());
                     //intent.putExtra("status", false);
                     startActivity(intent);

@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<com.teaminversion.envisionbuddy.SearchRecyclerViewAdapter.RecyclerViewHolder> {
+public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.RecyclerViewHolder> {
 
     private ArrayList<Map<String, String>> arrayList;
     private final Context context;
@@ -48,16 +48,16 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<com.teaminve
             @Override
             public void onClick(View v) {
                 Map<String, String> word = arrayList.get(position);
-                if (com.teaminversion.envisionbuddy.HomeFragment.recentList.size() > 10){
-                    com.teaminversion.envisionbuddy.HomeFragment.recentList.remove(0);
+                if (HomeFragment.recentList.size() > 10){
+                    HomeFragment.recentList.remove(0);
                 }
-                if (com.teaminversion.envisionbuddy.HomeFragment.recentList.contains(word)){
-                    com.teaminversion.envisionbuddy.HomeFragment.recentList.remove(word);
+                if (HomeFragment.recentList.contains(word)){
+                    HomeFragment.recentList.remove(word);
                 }
-                com.teaminversion.envisionbuddy.HomeFragment.recentList.add(word);
-                SharedPreferences sharedPreferences = context.getSharedPreferences("com.teaminversion.envisionbuddy", Context.MODE_PRIVATE);
+                HomeFragment.recentList.add(word);
+                SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.envision_buddy", Context.MODE_PRIVATE);
                 try {
-                    sharedPreferences.edit().putString("recentList", ObjectSerializer.serialize(com.teaminversion.envisionbuddy.HomeFragment.recentList)).apply();
+                    sharedPreferences.edit().putString("recentList", ObjectSerializer.serialize(HomeFragment.recentList)).apply();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

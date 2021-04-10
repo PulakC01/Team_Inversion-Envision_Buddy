@@ -32,16 +32,8 @@ public class SearchFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        /*dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);*/
+
         View root = inflater.inflate(R.layout.fragment_search, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
 
         TextInputLayout inputLayout = root.findViewById(R.id.filledTextField);
         EditText searchText = root.findViewById(R.id.editText);
@@ -59,15 +51,15 @@ public class SearchFragment extends Fragment {
                 searchList.clear();
                 String word = searchText.getText().toString();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(com.teaminversion.envisionbuddy.API.BASE_URL)
+                        .baseUrl(API.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                com.teaminversion.envisionbuddy.API myApi = retrofit.create(com.teaminversion.envisionbuddy.API.class);
-                Call<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>> call = myApi.getResult("old-smoke-4544", word);
-                call.enqueue(new Callback<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>>() {
+                API myApi = retrofit.create(API.class);
+                Call<ArrayList<JSONProcessActivity>> call = myApi.getResult("old-smoke-4544", word);
+                call.enqueue(new Callback<ArrayList<JSONProcessActivity>>() {
                     @Override
-                    public void onResponse(Call<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>> call, Response<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>> response) {
-                        ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity> searchResults = response.body();
+                    public void onResponse(Call<ArrayList<JSONProcessActivity>> call, Response<ArrayList<JSONProcessActivity>> response) {
+                        ArrayList<JSONProcessActivity> searchResults = response.body();
                         for (int i = 0; i < searchResults.size(); i++) {
                             if (searchResults.get(i).getSource().equals("Poly")) {
                                 Map<String, String> modelInfo = new HashMap<>();
@@ -87,7 +79,7 @@ public class SearchFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ArrayList<com.teaminversion.envisionbuddy.JSONProcessActivity>> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<JSONProcessActivity>> call, Throwable t) {
                         inputLayout.setError("Couldn't fetch data");
                     }
                 });

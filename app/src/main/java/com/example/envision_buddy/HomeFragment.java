@@ -46,7 +46,7 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
 
     String mCurrentPhotoPath;
-    static com.teaminversion.envisionbuddy.MainRecyclerViewAdapter mainAdapter;
+    static MainRecyclerViewAdapter mainAdapter;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final int MY_STORAGE_PERMISSION_CODE = 101;
     static ArrayList<Map<String, String>> recentList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.teaminversion.envisionbuddy", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.example.envision_buddy", Context.MODE_PRIVATE);
         recentList.clear();
         try {
             recentList = (ArrayList<Map<String, String>>) ObjectSerializer.deserialize(sharedPreferences.getString("recentList", ObjectSerializer.serialize(new ArrayList<Map<String, String>>())));
@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
 
         resultText = "";
         RecyclerView mainRecyclerView = root.findViewById(R.id.mainRecyclerView);
-        mainAdapter = new com.teaminversion.envisionbuddy.MainRecyclerViewAdapter(recentList, getActivity());
+        mainAdapter = new MainRecyclerViewAdapter(recentList, getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
         layoutManager.setStackFromEnd(true);
         mainRecyclerView.setLayoutManager(layoutManager);
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 recentList.clear();
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.teaminversion.envisionbuddy", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("com.example.envision_buddy", Context.MODE_PRIVATE);
                 try {
                     sharedPreferences.edit().putString("recentList", ObjectSerializer.serialize(recentList)).apply();
                 } catch (IOException e) {
@@ -128,10 +128,6 @@ public class HomeFragment extends Fragment {
                 }
 
                 if (photoFile != null) {
-                    /*Uri photoURI = FileProvider.getUriForFile(this, "com.teaminversion.envisionbuddy.fileprovider", photoFile);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);*/
                     CropImage.activity()
                             .setGuidelines(CropImageView.Guidelines.ON)
                             .setAutoZoomEnabled(true)

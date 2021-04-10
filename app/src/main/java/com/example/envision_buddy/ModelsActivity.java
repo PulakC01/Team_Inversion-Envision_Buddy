@@ -18,7 +18,7 @@ public class ModelsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_models);
         RecyclerView modelsRecyclerView = findViewById(R.id.modelsRecyclerView);
 
-        com.teaminversion.envisionbuddy.ModelsRecyclerViewAdapter modelsAdapter = new com.teaminversion.envisionbuddy.ModelsRecyclerViewAdapter(com.teaminversion.envisionbuddy.ChoiceActivity.models,this);
+        ModelsRecyclerViewAdapter modelsAdapter = new ModelsRecyclerViewAdapter(ChoiceActivity.models,this);
         GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         modelsRecyclerView.setLayoutManager(layoutManager);
         modelsRecyclerView.setAdapter(modelsAdapter);
@@ -28,7 +28,7 @@ public class ModelsActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.teaminversion.envisionbuddy.ModelsActivity.this, com.teaminversion.envisionbuddy.ChoiceActivity.class);
+                Intent intent = new Intent(ModelsActivity.this, ChoiceActivity.class);
                 //intent.putExtra("status", true);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -40,7 +40,7 @@ public class ModelsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(com.teaminversion.envisionbuddy.ModelsActivity.this, com.teaminversion.envisionbuddy.ChoiceActivity.class);
+        Intent intent = new Intent(ModelsActivity.this, ChoiceActivity.class);
         //intent.putExtra("status", true);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

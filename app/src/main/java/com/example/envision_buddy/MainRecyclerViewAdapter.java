@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MainRecyclerViewAdapter extends RecyclerView.Adapter<com.teaminversion.envisionbuddy.MainRecyclerViewAdapter.RecyclerViewHolder> {
+public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.RecyclerViewHolder> {
 
     private ArrayList<Map<String, String>> arrayList;
     private final Context context;
@@ -51,7 +51,7 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<com.teaminvers
                 context.startActivity(new Intent(context, ModelsActivity.class));
                 arrayList.remove(position);
                 arrayList.add(word);
-                SharedPreferences sharedPreferences = context.getSharedPreferences("com.teaminversion.envisionbuddy", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.envision_buddy", Context.MODE_PRIVATE);
                 try {
                     sharedPreferences.edit().putString("recentList", ObjectSerializer.serialize(arrayList)).apply();
                 } catch (IOException e) {

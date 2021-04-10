@@ -69,7 +69,6 @@ public class ChoiceActivity extends AppCompatActivity {
     }
 
     private void analyzeText(String inputText){
-        //Sample choices
         AnalyzeTextTask analyzeTextTask = new AnalyzeTextTask();
         try {
             String urlEncoder = URLEncoder.encode(inputText, "UTF-8");
